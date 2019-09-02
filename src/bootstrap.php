@@ -36,7 +36,9 @@ $synapse->commands = Axiom\Collections\Collection::make([
 
 $synapse->triggers = Axiom\Collections\Collection::make([
     'Wildcard',
-    'Arrays'
+    'Arrays',
+    'Optional',
+    'Alternation'
 ]);
 
 $synapse->tags = Axiom\Collections\Collection::make([
