@@ -100,6 +100,8 @@
 ! sub gtg       = got to go
 ! sub g2g       = got to go
 
+! array colors = red green blue cyan magenta yellow black white orange brown
+
 + hello bot
 - Hello human.
 
@@ -135,6 +137,24 @@
 
 + what is my name
 - Your name is <get name>!
+
++ i am wearing a (@colors) shirt
+- I don't know if I have a shirt that's colored <star>.
+
++ i have a [@colors] hat
+- i don't like your hat
+
++ i have a @colors colored *
+- Have you thought about getting a <star> in a different color?
+
++ what is your [home] phone number
+- 123123123
+
++ [*] the machine [*]
+- How do you know about the machine!?
+
++ i have a [red|green|blue] car
+- I bet you like your car a lot.
 
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
