@@ -2,6 +2,8 @@
 
 namespace Axiom\Rivescript\Cortex;
 
+use Axiom\Collections\Collection;
+
 class Output
 {
     /**
@@ -37,7 +39,26 @@ class Output
     public function process()
     {
         synapse()->brain->topic()->triggers()->each(function ($data, $trigger) {
-            $this->searchTriggers($trigger);
+
+            $trigger = $this->parseTags($trigger);
+            $regx_trigger = $this->proccessTriggers($trigger);
+
+            $result = preg_match_all('/'.$regx_trigger.'$/ui', $this->input->source(), $stars);
+
+            if ($result) {
+                if (isset($stars[1])) {
+                    array_shift($stars);
+                    
+                    $stars = Collection::make($stars)->flatten()->all();
+
+                    synapse()->memory->shortTerm()->put('stars', $stars);
+
+                }
+
+                $this->getResponse($trigger);
+
+            }
+
 
             if ($this->output !== 'Error: Response could not be determined.') {
                 return false;
@@ -48,26 +69,24 @@ class Output
     }
 
     /**
-     * Search through available triggers to find a possible match.
+     * proccess triggers to find a possible match.
      *
      * @param string $trigger
      *
      * @return bool
      */
-    protected function searchTriggers($trigger)
+    protected function proccessTriggers($trigger)
     {
-        synapse()->triggers->each(function ($class) use ($trigger) {
+        $trigger = preg_quote($trigger);
+
+        synapse()->triggers->each(function ($class) use (&$trigger) {
             $triggerClass = "\\Axiom\\Rivescript\\Cortex\\Triggers\\$class";
             $triggerClass = new $triggerClass();
 
-            $found = $triggerClass->parse($trigger, $this->input);
-
-            if ($found === true) {
-                $this->getResponse($trigger);
-
-                return false;
-            }
+            $trigger = $triggerClass->parse($trigger, $this->input);
         });
+        
+        return $trigger;
     }
 
     /**
@@ -80,7 +99,6 @@ class Output
     protected function getResponse($trigger)
     {
         $trigger = synapse()->brain->topic()->triggers()->get($trigger);
-
         if (isset($trigger['redirect'])) {
             return $this->getResponse($trigger['redirect']);
         }
@@ -106,5 +124,17 @@ class Output
         });
 
         return $response;
+    }
+
+    protected function parseTags($trigger)
+    {
+        synapse()->tags->each(function ($tag) use (&$trigger) {
+            $class = "\\Axiom\\Rivescript\\Cortex\\Tags\\$tag";
+            $tagClass = new $class('trigger');
+
+            $trigger = $tagClass->parse($trigger, $this->input);
+        });
+
+        return mb_strtolower($trigger);
     }
 }
