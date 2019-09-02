@@ -40,10 +40,10 @@ class Output
     {
         synapse()->brain->topic()->triggers()->each(function ($data, $trigger) {
 
-            $trigger = $this->parseTags($trigger);
-            $regx_trigger = $this->proccessTriggers($trigger);
+            $parsedTrigger = $this->parseTags($trigger);
+            $parsedTrigger = $this->proccessTriggers($parsedTrigger);
 
-            $result = preg_match_all('/'.$regx_trigger.'$/ui', $this->input->source(), $stars);
+            $result = preg_match_all('/'.$parsedTrigger.'$/ui', $this->input->source(), $stars);
 
             if ($result) {
                 if (isset($stars[1])) {
