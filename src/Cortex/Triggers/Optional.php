@@ -16,6 +16,14 @@ class Optional extends Trigger
      */
     public function parse($trigger, $input)
     {
-        return preg_replace('/\s+\\\\\\[([^\\[\\]]+?)\\\\\\]\s+/', '\\s*(?:$1)?\\s*', $trigger);
+        return preg_replace_callback('/\s+\\\\\\[([^\\[\\]]+?)\\\\\\]\s+/', function($match) {
+            if ($match[1] == '\\*')
+                return '\\b.*';
+            elseif (strpos($match[1], '\\|'))
+                return '\\s*(?:\\b'+str_replace('\\|', '|', $match[1])+'\\b)?\\s*';
+            else 
+                return '\\s*(?:\\b'.$match[1].'\\b)?\\s*'; 
+
+        }, $trigger);
     }
 }
