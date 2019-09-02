@@ -47,6 +47,7 @@ $synapse->tags = Axiom\Collections\Collection::make([
     'Set',
     'Get',
     'Topic',
+    'Random',
 ]);
 
 /*

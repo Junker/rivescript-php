@@ -156,6 +156,9 @@
 + i have a [red|green|blue] car
 - I bet you like your car a lot.
 
++ say something random
+- This {random}message|sentence{/random} has a random word.
+
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
 
