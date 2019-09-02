@@ -19,6 +19,8 @@ class Arrays extends Trigger
         if (preg_match_all('/@(\w+)/', $trigger, $array_names)) {
             $array_names = $array_names[1];
 
+            $array_names = array_unique($array_names);
+
             foreach ($array_names as $array_name) {
                 if ($array = synapse()->memory->arrays()->get($array_name)) {
                     array_walk($array, 'preg_quote');
