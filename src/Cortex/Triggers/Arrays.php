@@ -27,6 +27,7 @@ class Arrays extends Trigger
                     $array_str = implode('|', $array);
 
                     $trigger = str_replace("\\(@$array_name\\)", "($array_str)", $trigger);
+                    $trigger = str_replace("[@$array_name]", "(?:$array_str)", $trigger);
                     $trigger = str_replace("@$array_name", "(?:$array_str)", $trigger);
                 }
             }
