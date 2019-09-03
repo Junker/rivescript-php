@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class Get extends Tag
+class SetTag extends Tag
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class Get extends Tag
      *
      * @var string
      */
-    protected $pattern = '/<get (.+?)>/u';
+    protected $pattern = '/<set (.+?)=(.+?)>/u';
 
     /**
      * Parse the response.
@@ -33,10 +33,10 @@ class Get extends Tag
         }
 
         if ($this->hasMatches($source)) {
-            $matches  = $this->getMatches($source)[0];
-            $userData = synapse()->memory->user($input->user())->get($matches[1]) ?? 'undefined';
+            $matches = $this->getMatches($source)[0];
 
-            $source = str_replace($matches[0], $userData, $source);
+            synapse()->memory->user($input->user())->put($matches[1], $matches[2]);
+            $source = str_replace($matches[0], '', $source);
         }
 
         return $source;

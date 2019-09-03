@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Triggers;
 
 use Axiom\Collections\Collection;
 
-class Arrays extends Trigger
+class ArrayTrigger extends Trigger
 {
     /**
      * Parse the trigger.

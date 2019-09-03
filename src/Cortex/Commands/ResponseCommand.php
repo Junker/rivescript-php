@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 
-class Response implements Command
+class ResponseCommand implements Command
 {
     /**
      * Parse the command.
@@ -18,12 +18,9 @@ class Response implements Command
     {
         if ($node->command() === '-') {
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
-            $key     = synapse()->memory->shortTerm()->get('trigger');
-            $trigger = synapse()->brain->topic($topic)->triggers()->get($key);
+            $trigger = synapse()->memory->shortTerm()->get('trigger');
 
-            $trigger['responses'][] = $node->value();
-
-            synapse()->brain->topic($topic)->triggers()->put($key, $trigger);
+            $trigger->responses[] = $node->value();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 
-class Redirect implements Command
+class RedirectCommand implements Command
 {
     /**
      * Parse the command.
@@ -18,12 +18,13 @@ class Redirect implements Command
     {
         if ($node->command() === '@') {
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
-            $key     = synapse()->memory->shortTerm()->get('trigger');
-            $trigger = synapse()->brain->topic($topic)->triggers()->get($key);
+            $trigger = synapse()->memory->shortTerm()->get('trigger');
 
-            $trigger['redirect'] = $node->value();
+            synapse()->brain->topic($topic)->triggers()->each(function($tr) use ($trigger, $node) {
 
-            synapse()->brain->topic($topic)->triggers()->put($key, $trigger);
+                if ($tr->row == $node->value())
+                    $trigger->redirect = $tr;
+            });
         }
     }
 }

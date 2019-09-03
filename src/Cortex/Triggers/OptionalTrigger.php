@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Triggers;
 
 use Axiom\Collections\Collection;
 
-class Optional extends Trigger
+class OptionalTrigger extends Trigger
 {
     /**
      * Parse the trigger.

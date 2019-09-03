@@ -4,26 +4,27 @@ namespace Axiom\Rivescript\Cortex\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class Bot extends Tag
+class TopicTag extends Tag
 {
     /**
      * @var array
      */
-    protected $allowedSources = ['response', 'trigger'];
+    protected $allowedSources = ['response'];
 
     /**
      * Regex expression pattern.
      *
      * @var string
      */
-    protected $pattern = '/<bot (.+?)>/i';
+    protected $pattern = '/\{topic=(.+?)\}/u';
 
     /**
-     * Parse the source.
+     * Parse the response.
      *
-     * @param string $source
+     * @param string $response
+     * @param array  $data
      *
-     * @return string
+     * @return array
      */
     public function parse($source, Input $input)
     {
@@ -32,12 +33,10 @@ class Bot extends Tag
         }
 
         if ($this->hasMatches($source)) {
-            $matches   = $this->getMatches($source);
-            $variables = synapse()->memory->variables();
+            list($find, $topic) = $this->getMatches($source)[0];
 
-            foreach ($matches as $match) {
-                $source = str_replace($match[0], $variables[$match[1]], $source);
-            }
+            $source = str_replace($find, '', $source);
+            synapse()->memory->shortTerm()->put('topic', $topic);
         }
 
         return $source;

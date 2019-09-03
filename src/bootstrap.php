@@ -15,43 +15,6 @@ $synapse = new Axiom\Rivescript\Cortex\Synapse();
 
 /*
 |--------------------------------------------------------------------------
-| Bind Important Variables
-|--------------------------------------------------------------------------
-|
-| Next, we will bind some important variables within the synapse so
-| we will be able to resolve them when needed.
-|
-*/
-
-$synapse->commands = Axiom\Collections\Collection::make([
-    'Redirect',
-    'Response',
-    'Topic',
-    'Trigger',
-    'Variable',
-    'VariablePerson',
-    'VariableSubstitute',
-    'VariableArray',
-]);
-
-$synapse->triggers = Axiom\Collections\Collection::make([
-    'Arrays',
-    'Optional',
-    'Alternation',
-    'Wildcard',
-]);
-
-$synapse->tags = Axiom\Collections\Collection::make([
-    'Star',
-    'Bot',
-    'Set',
-    'Get',
-    'Topic',
-    'Random',
-]);
-
-/*
-|--------------------------------------------------------------------------
 | Bind Important Interfaces
 |--------------------------------------------------------------------------
 |
@@ -62,6 +25,7 @@ $synapse->tags = Axiom\Collections\Collection::make([
 
 $synapse->memory = new Axiom\Rivescript\Cortex\Memory();
 $synapse->brain  = new Axiom\Rivescript\Cortex\Brain();
+$synapse->parser  = new Axiom\Rivescript\Cortex\Parser();
 
 /*
 |--------------------------------------------------------------------------

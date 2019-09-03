@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Triggers;
 
 use Axiom\Collections\Collection;
 
-class Alternation extends Trigger
+class AlternationTrigger extends Trigger
 {
     /**
      * Parse the trigger.

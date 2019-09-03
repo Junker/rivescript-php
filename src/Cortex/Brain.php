@@ -26,7 +26,6 @@ class Brain
      */
     public function teach($file)
     {
-        $commands   = synapse()->commands;
         $file       = new SplFileObject($file);
         $lineNumber = 0;
 
@@ -38,18 +37,7 @@ class Brain
                 continue;
             }
 
-            $commands->each(function ($command) use ($node, $currentCommand) {
-                $class = "\\Axiom\\Rivescript\\Cortex\\Commands\\$command";
-                $commandClass = new $class();
-
-                $result = $commandClass->parse($node, $currentCommand);
-
-                if (isset($result['command'])) {
-                    $currentCommand = $result['command'];
-
-                    return false;
-                }
-            });
+            $currentCommand = synapse()->parser->parseCommands($node, $currentCommand);
         }
     }
 

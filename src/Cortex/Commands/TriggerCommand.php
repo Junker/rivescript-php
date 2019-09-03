@@ -2,10 +2,12 @@
 
 namespace Axiom\Rivescript\Cortex\Commands;
 
+use Axiom\Rivescript\Cortex\Trigger;
 use Axiom\Collections\Collection;
 use Axiom\Rivescript\Contracts\Command;
 
-class Trigger implements Command
+
+class TriggerCommand implements Command
 {
     /**
      * Parse the command.
@@ -22,16 +24,13 @@ class Trigger implements Command
             $topic = synapse()->brain->topic($topic);
             $type  = $this->determineTriggerType($node->value());
 
-            $data = [
-                'type'      => $type,
-                'responses' => [],
-            ];
+            $trigger = new Trigger($node->value(), $type);
 
-            $topic->triggers->put($node->value(), $data);
+            $topic->triggers->push($trigger);
 
             $topic->triggers = $this->sortTriggers($topic->triggers);
 
-            synapse()->memory->shortTerm()->put('trigger', $node->value());
+            synapse()->memory->shortTerm()->put('trigger', $trigger);
         }
     }
 
@@ -42,16 +41,16 @@ class Trigger implements Command
      *
      * @return string
      */
-    protected function determineTriggerType($trigger)
+    protected function determineTriggerType($triggerRow)
     {
         $wildcards = [
-            'alphabetic' => '/_/',
-            'numeric'    => '/#/',
-            'global'     => '/\*/',
+            Trigger::TYPE_ALPHABETIC => '/_/',
+            Trigger::TYPE_NUMERIC    => '/#/',
+            Trigger::TYPE_GLOBAL     => '/\*/',
         ];
 
         foreach ($wildcards as $type => $pattern) {
-            if (@preg_match_all($pattern, $trigger, $stars)) {
+            if (@preg_match_all($pattern, $triggerRow, $stars)) {
                 return $type;
             }
         }
@@ -69,11 +68,11 @@ class Trigger implements Command
      */
     protected function sortTriggers($triggers)
     {
-        $triggers = $this->determineWordCount($triggers);
-        $triggers = $this->determineTypeCount($triggers);
+        $this->determineWordCount($triggers);
+        $this->determineTypeCount($triggers);
 
         $triggers = $triggers->sort(function ($current, $previous) {
-            return ($current['order'] < $previous['order']) ? -1 : 1;
+            return ($current->order < $previous->order) ? -1 : 1;
         })->reverse();
 
         return $triggers;
@@ -81,26 +80,22 @@ class Trigger implements Command
 
     protected function determineTypeCount($triggers)
     {
-        $triggers = $triggers->each(function ($data, $trigger) use ($triggers) {
-            switch ($data['type']) {
-                case 'atomic':
-                    $data['order'] += 4000000;
+        $triggers = $triggers->each(function ($trigger) {
+            switch ($trigger->type) {
+                case Trigger::TYPE_ATOMIC:
+                    $trigger->order += 4000000;
                     break;
-                case 'alphabetic':
-                    $data['order'] += 3000000;
+                case Trigger::TYPE_ALPHABETIC:
+                    $trigger->order += 3000000;
                     break;
-                case 'numeric':
-                    $data['order'] += 2000000;
+                case Trigger::TYPE_NUMERIC:
+                    $trigger->order += 2000000;
                     break;
-                case 'global':
-                    $data['order'] += 1000000;
+                case Trigger::TYPE_GLOBAL:
+                    $trigger->order += 1000000;
                     break;
             }
-
-            $triggers->put($trigger, $data);
         });
-
-        return $triggers;
     }
 
     /**
@@ -113,12 +108,9 @@ class Trigger implements Command
      */
     protected function determineWordCount($triggers)
     {
-        $triggers = $triggers->each(function ($data, $trigger) use ($triggers) {
-            $data['order'] = count(explode(' ', $trigger));
-
-            $triggers->put($trigger, $data);
+        $triggers->each(function ($trigger) {
+            $trigger->order = count(explode(' ', $trigger->row));
         });
 
-        return $triggers;
     }
 }

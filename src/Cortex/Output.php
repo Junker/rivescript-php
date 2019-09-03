@@ -38,10 +38,10 @@ class Output
      */
     public function process()
     {
-        synapse()->brain->topic()->triggers()->each(function ($data, $trigger) {
+        synapse()->brain->topic()->triggers()->each(function ($trigger) {
 
-            $parsedTrigger = $this->parseTags($trigger);
-            $parsedTrigger = $this->proccessTriggers($parsedTrigger);
+            $parsedTrigger = $this->parseTriggerTags($trigger->row);
+            $parsedTrigger = $this->parseTriggers($parsedTrigger);
 
             $result = preg_match_all('/'.$parsedTrigger.'$/ui', $this->input->source(), $stars);
 
@@ -69,27 +69,6 @@ class Output
     }
 
     /**
-     * proccess triggers to find a possible match.
-     *
-     * @param string $trigger
-     *
-     * @return bool
-     */
-    protected function proccessTriggers($trigger)
-    {
-        $trigger = preg_quote($trigger);
-
-        synapse()->triggers->each(function ($class) use (&$trigger) {
-            $triggerClass = "\\Axiom\\Rivescript\\Cortex\\Triggers\\$class";
-            $triggerClass = new $triggerClass();
-
-            $trigger = $triggerClass->parse($trigger, $this->input);
-        });
-        
-        return $trigger;
-    }
-
-    /**
      * Fetch a response from the found trigger.
      *
      * @param string $trigger;
@@ -98,14 +77,17 @@ class Output
      */
     protected function getResponse($trigger)
     {
-        $trigger = synapse()->brain->topic()->triggers()->get($trigger);
-        if (isset($trigger['redirect'])) {
-            return $this->getResponse($trigger['redirect']);
+        if (isset($trigger->redirect)) {
+            return $this->getResponse($trigger->redirect);
         }
 
-        $key          = array_rand($trigger['responses']);
-        $this->output = $this->parseResponse($trigger['responses'][$key]);
+
+
+        $key          = array_rand($trigger->responses);
+        $this->output = $this->parseResponseTags($trigger->responses[$key]);
     }
+
+
 
     /**
      * Parse the response through the available tags.
@@ -114,27 +96,32 @@ class Output
      *
      * @return string
      */
-    protected function parseResponse($response)
+    protected function parseResponseTags($response)
     {
-        synapse()->tags->each(function ($tag) use (&$response) {
-            $class = "\\Axiom\\Rivescript\\Cortex\\Tags\\$tag";
-            $tagClass = new $class();
-
-            $response = $tagClass->parse($response, $this->input);
-        });
-
-        return $response;
+        return synapse()->parser->parseResponseTags($response, $this->input);
     }
 
-    protected function parseTags($trigger)
+    /**
+     * Parse the trigger through the available tags.
+     *
+     * @param string $trigger
+     *
+     * @return string
+     */
+    protected function parseTriggerTags($trigger)
     {
-        synapse()->tags->each(function ($tag) use (&$trigger) {
-            $class = "\\Axiom\\Rivescript\\Cortex\\Tags\\$tag";
-            $tagClass = new $class('trigger');
+        return synapse()->parser->parseTriggerTags($trigger, $this->input);
+    }
 
-            $trigger = $tagClass->parse($trigger, $this->input);
-        });
-
-        return mb_strtolower($trigger);
+    /**
+     * Parse triggers to find a possible match.
+     *
+     * @param string $trigger
+     *
+     * @return bool
+     */
+    protected function parseTriggers($trigger)
+    {
+        return synapse()->parser->parseTriggers($trigger, $this->input);
     }
 }

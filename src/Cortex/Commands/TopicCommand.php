@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 
-class Topic implements Command
+class TopicCommand implements Command
 {
     /**
      * Parse the command.

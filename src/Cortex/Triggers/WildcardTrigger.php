@@ -2,7 +2,7 @@
 
 namespace Axiom\Rivescript\Cortex\Triggers;
 
-class Wildcard extends Trigger
+class WildcardTrigger extends Trigger
 {
     /**
      * Parse the trigger.

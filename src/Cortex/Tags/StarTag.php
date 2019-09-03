@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class Set extends Tag
+class StarTag extends Tag
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class Set extends Tag
      *
      * @var string
      */
-    protected $pattern = '/<set (.+?)=(.+?)>/u';
+    protected $pattern = '/<star(\d+)?>/i';
 
     /**
      * Parse the response.
@@ -33,10 +33,15 @@ class Set extends Tag
         }
 
         if ($this->hasMatches($source)) {
-            $matches = $this->getMatches($source)[0];
+            $matches = $this->getMatches($source);
+            $stars   = synapse()->memory->shortTerm()->get('stars');
 
-            synapse()->memory->user($input->user())->put($matches[1], $matches[2]);
-            $source = str_replace($matches[0], '', $source);
+            foreach ($matches as $key => $match) {
+                $needle = $match[0];
+                $index  = (empty($match[1]) ? 0 : $match[1] - 1);
+
+                $source = str_replace($match[0], $stars[$index], $source);
+            }
         }
 
         return $source;
