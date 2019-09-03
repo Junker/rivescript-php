@@ -1,5 +1,5 @@
 {
-    "name": "axiom/rivescript",
+    "name": "junker/rivescript",
     "description": "RiveScript interpreter library for PHP with Laravel support. RiveScript is a scripting language for chatterbots, making it easy to write trigger/response pairs for building up a bot's intelligence.",
     "keywords": ["rivescript", "bot", "ai", "chatterbot", "axiom"],
     "license": "MIT",
@@ -7,17 +7,22 @@
         {
             "name": "Shea Lewis",
             "email": "shea.lewis89@gmail.com"
+        },
+        {
+            "name": "Dmitry Kosenkov",
+            "email": "dk-junker@ya.ru"
         }
     ],
     "require": {
         "php": ">=7.1",
-        "symfony/console": "~3.0",
-        "symfony/finder": "^3.2",
         "axiom/collections": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~5.0",
         "monolog/monolog": "~1.0"
+    },
+    "suggest": {
+        "symfony/console": "Allows to create console bot"
     },
     "autoload": {
         "files": [
