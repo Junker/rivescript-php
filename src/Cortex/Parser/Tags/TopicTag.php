@@ -1,10 +1,10 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Tags;
+namespace Axiom\Rivescript\Cortex\Parser\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class RandomTag extends Tag
+class TopicTag extends Tag
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class RandomTag extends Tag
      *
      * @var string
      */
-    protected $pattern = '/\{random\}(.+?)\{\/random\}/u';
+    protected $pattern = '/\{topic=(.+?)\}/u';
 
     /**
      * Parse the response.
@@ -33,14 +33,10 @@ class RandomTag extends Tag
         }
 
         if ($this->hasMatches($source)) {
-            $matches = $this->getMatches($source)[0];
+            list($find, $topic) = $this->getMatches($source)[0];
 
-            $options = explode('|', $matches[1]);
-
-            $option = $options[array_rand($options)];
-                  
-
-            $source = str_replace($matches[0], $option, $source);
+            $source = str_replace($find, '', $source);
+            synapse()->memory->shortTerm()->put('topic', $topic);
         }
 
         return $source;

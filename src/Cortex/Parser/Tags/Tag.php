@@ -1,6 +1,6 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Tags;
+namespace Axiom\Rivescript\Cortex\Parser\Tags;
 
 use LogicException;
 use Axiom\Rivescript\Contracts\Tag as TagContract;

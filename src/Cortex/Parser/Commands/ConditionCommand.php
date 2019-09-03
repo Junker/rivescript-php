@@ -1,6 +1,6 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Commands;
+namespace Axiom\Rivescript\Cortex\Parser\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 use Axiom\Rivescript\Cortex\Condition;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Commands;
+namespace Axiom\Rivescript\Cortex\Parser\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 
-class VariableSubstituteCommand implements Command
+class VariableArrayCommand implements Command
 {
     /**
      * Parse the command.
@@ -19,15 +19,16 @@ class VariableSubstituteCommand implements Command
         if ($node->command() === '!') {
             $type = strtok($node->value(), ' ');
 
-            if ($type === 'sub') {
-                $value             = str_replace('sub', '', $node->value());
+            if ($type === 'array') {
+                $value             = str_replace('array', '', $node->value());
                 list($key, $value) = explode('=', $value);
 
                 $key   = trim($key);
-                $key   = '/\b'.preg_quote($key, '/').'\b/'; // Convert the "key" to a regular expression ready format
                 $value = trim($value);
 
-                synapse()->memory->substitute()->put($key, $value);
+                $value = explode(strpos($value, '|') ? '|' : ' ', $value);
+
+                synapse()->memory->arrays()->put($key, $value);
             }
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Triggers;
+namespace Axiom\Rivescript\Cortex\Parser\Triggers;
 
 use Axiom\Collections\Collection;
 

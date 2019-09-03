@@ -1,10 +1,10 @@
 <?php
 
-namespace Axiom\Rivescript\Cortex\Tags;
+namespace Axiom\Rivescript\Cortex\Parser\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class TopicTag extends Tag
+class GetTag extends Tag
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class TopicTag extends Tag
      *
      * @var string
      */
-    protected $pattern = '/\{topic=(.+?)\}/u';
+    protected $pattern = '/<get (.+?)>/u';
 
     /**
      * Parse the response.
@@ -33,10 +33,10 @@ class TopicTag extends Tag
         }
 
         if ($this->hasMatches($source)) {
-            list($find, $topic) = $this->getMatches($source)[0];
+            $matches  = $this->getMatches($source)[0];
+            $userData = synapse()->memory->user($input->user())->get($matches[1]) ?? 'undefined';
 
-            $source = str_replace($find, '', $source);
-            synapse()->memory->shortTerm()->put('topic', $topic);
+            $source = str_replace($matches[0], $userData, $source);
         }
 
         return $source;

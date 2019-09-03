@@ -68,7 +68,7 @@ class Parser
 	public function parseTriggerTags($trigger, $input)
 	{
 		foreach (self::TAGS as $class) {
-			$class = "\\Axiom\\Rivescript\\Cortex\\Tags\\$class";
+			$class = "\\Axiom\\Rivescript\\Cortex\\Parser\\Tags\\$class";
 			$tagClass = new $class('trigger');
 
 			$trigger = $tagClass->parse($trigger, $input);
@@ -87,7 +87,7 @@ class Parser
 	public function parseResponseTags($response, $input)
 	{
 		foreach (self::TAGS as $class) {
-	        $class = "\\Axiom\\Rivescript\\Cortex\\Tags\\$class";
+	        $class = "\\Axiom\\Rivescript\\Cortex\\Parser\\Tags\\$class";
 	        $tagClass = new $class();
 
 	        $response = $tagClass->parse($response, $input);
@@ -109,7 +109,7 @@ class Parser
 	    $trigger = preg_quote($trigger);
 
 	    foreach (self::TRIGGERS as $class) {
-	        $triggerClass = "\\Axiom\\Rivescript\\Cortex\\Triggers\\$class";
+	        $triggerClass = "\\Axiom\\Rivescript\\Cortex\\Parser\\Triggers\\$class";
 	        $triggerClass = new $triggerClass();
 
 	        $trigger = $triggerClass->parse($trigger, $input);
@@ -121,7 +121,7 @@ class Parser
 	public function parseCommands($node, $currentCommand)
 	{
 		foreach (self::COMMANDS as $command) {
-			$class = "\\Axiom\\Rivescript\\Cortex\\Commands\\$command";
+			$class = "\\Axiom\\Rivescript\\Cortex\\Parser\\Commands\\$command";
 			$commandClass = new $class();
 
 			$result = $commandClass->parse($node, $currentCommand);
