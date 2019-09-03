@@ -81,13 +81,16 @@ class Output
             return $this->getResponse($trigger->redirect);
         }
 
-
+        foreach ($trigger->conditions as $condition) {
+            if ($condition->assert($this->input)) {
+                $this->output = $this->parseResponseTags($condition->response);
+                return;
+            }
+        }
 
         $key          = array_rand($trigger->responses);
         $this->output = $this->parseResponseTags($trigger->responses[$key]);
     }
-
-
 
     /**
      * Parse the response through the available tags.

@@ -159,6 +159,17 @@
 + say something random
 - This {random}message|sentence{/random} has a random word.
 
++ how you call me
+* <get name> == undefined => You never told me your name.
+- Your name is <get name>, silly!
+- Aren't you <get name>?
+
++ # and 3
+* <star> > 3 => greatter
+* <star> < 3 => lesser
+- don't know
+
+
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
 

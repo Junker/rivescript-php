@@ -25,6 +25,7 @@ class Parser
 	const COMMANDS = [
 		'RedirectCommand',
 	    'ResponseCommand',
+	    'ConditionCommand',
 	    'TopicCommand',
 	    'TriggerCommand',
 	    'VariableCommand',
