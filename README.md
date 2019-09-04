@@ -73,17 +73,18 @@ A copy of the working draft can be found within the `resources` directory of thi
 ### - Response
 - [x] Atomic
 - [x] Random
-- [ ] Weighted Random
+- [x] Weighted Random
 
 ## Tags
 - [x] `<star>`
 - [x] `<star1>` - `<starN>`
 - [ ] `<botstar>`
 - [ ] `<botstar1>` - `<botstarN>`
-- [ ] `<input1>` - `<input9>`
+- [x] `<input>`
+- [x] `<input1>` - `<input9>`
 - [x] `<reply>`	
 - [x] `<reply1>` - `<reply9`
-- [ ] `<id>`
+- [x] `<id>`
 - [x] `<bot>`
 - [ ] `<env>`
 - [x] `<get>`
@@ -93,19 +94,19 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [ ] `<mult>`
 - [ ] `<div>`
 - [x] `{topic=...}`
-- [ ] `{weight=...}`
+- [x] `{weight=...}`
 - [ ] `{@...}`
 - [ ] `<@>`
 - [x] `{random}...{/random}`
 - [ ] `{person}...{/person}`
 - [ ] `<person>`
-- [ ] `{formal}...{/formal}`
+- [x] `{formal}...{/formal}`
 - [ ] `<formal>`
-- [ ] `{sentence}...{/sentence}`
+- [x] `{sentence}...{/sentence}`
 - [ ] `<sentence>`
-- [ ] `{uppercase}...{/uppercase}`
+- [x] `{uppercase}...{/uppercase}`
 - [ ] `<uppercase>`
-- [ ] `{lowercase}...{/lowercase}`
+- [x] `{lowercase}...{/lowercase}`
 - [ ] `<lowercase>`
 - [ ] `{ok}`
 - [ ] `\s`
