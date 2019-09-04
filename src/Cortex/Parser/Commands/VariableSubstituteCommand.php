@@ -14,7 +14,7 @@ class VariableSubstituteCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '!') {
             $type = strtok($node->value(), ' ');
@@ -28,6 +28,8 @@ class VariableSubstituteCommand implements Command
                 $value = trim($value);
 
                 synapse()->memory->substitute()->put($key, $value);
+
+                return true;
             }
         }
     }

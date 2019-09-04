@@ -14,7 +14,7 @@ class VariableArrayCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '!') {
             $type = strtok($node->value(), ' ');
@@ -29,6 +29,8 @@ class VariableArrayCommand implements Command
                 $value = explode(strpos($value, '|') ? '|' : ' ', $value);
 
                 synapse()->memory->arrays()->put($key, $value);
+
+                return true;
             }
         }
     }

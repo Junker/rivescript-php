@@ -17,7 +17,10 @@ class TriggerCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+
+    private $trigger;
+
+    public function parse($node)
     {
         if ($node->command() === '+') {
             $topic = synapse()->memory->shortTerm()->get('topic') ?: 'random';
@@ -26,11 +29,14 @@ class TriggerCommand implements Command
 
             $trigger = new Trigger($node->value(), $type);
 
+            $this->trigger = $trigger;
             $topic->triggers->push($trigger);
 
             $topic->triggers = $this->sortTriggers($topic->triggers);
 
             synapse()->memory->shortTerm()->put('trigger', $trigger);
+
+            return true;
         }
     }
 
@@ -112,5 +118,11 @@ class TriggerCommand implements Command
             $trigger->order = count(explode(' ', $trigger->row));
         });
 
+    }
+
+
+    public function addContinuation($str)
+    {
+        $this->trigger->row .= $str;
     }
 }

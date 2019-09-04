@@ -14,13 +14,27 @@ class ResponseCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+
+    private $trigger;
+
+    public function parse($node)
     {
         if ($node->command() === '-') {
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
             $trigger = synapse()->memory->shortTerm()->get('trigger');
 
+            $this->trigger = $trigger;
+
             $trigger->responses[] = $node->value();
+
+            return true;
         }
     }
+
+    public function addContinuation($str)
+    {
+        $this->trigger->responses[count($this->trigger->responses)-1] .= $str;
+    }
+
+
 }

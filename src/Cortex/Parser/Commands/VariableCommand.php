@@ -14,7 +14,7 @@ class VariableCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '!') {
             $type = strtok($node->value(), ' ');
@@ -27,6 +27,8 @@ class VariableCommand implements Command
                 $value = trim($value);
 
                 synapse()->memory->variables()->put($key, $value);
+
+                return true;
             }
         }
     }

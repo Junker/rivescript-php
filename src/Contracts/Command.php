@@ -12,5 +12,5 @@ interface Command
      *
      * @return array
      */
-    public function parse($node, $command);
+    public function parse($node);
 }

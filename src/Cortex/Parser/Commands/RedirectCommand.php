@@ -14,7 +14,7 @@ class RedirectCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '@') {
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
@@ -23,7 +23,11 @@ class RedirectCommand implements Command
             synapse()->brain->topic($topic)->triggers()->each(function($tr) use ($trigger, $node) {
 
                 if ($tr->row == $node->value())
+                {
                     $trigger->redirect = $tr;
+
+                    return true;
+                }
             });
         }
     }

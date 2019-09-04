@@ -14,7 +14,7 @@ class TopicCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '>') {
             list($type, $topic) = explode(' ', $node->value());
@@ -25,11 +25,15 @@ class TopicCommand implements Command
                 }
 
                 synapse()->memory->shortTerm()->put('topic', $topic);
+
+                return true;
             }
         }
 
         if ($node->command() === '<' and $node->value() === 'topic') {
             synapse()->memory->shortTerm()->remove('topic');
+
+            return true;
         }
     }
 }

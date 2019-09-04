@@ -28,7 +28,7 @@ class ConditionCommand implements Command
         '>=' => '>=',
     ];
 
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '*') {
 
@@ -53,7 +53,7 @@ class ConditionCommand implements Command
 
                     $trigger->conditions[] = new Condition(trim($condition), trim($variable1), trim($variable2), trim($operator), trim($response));
 
-                    return;
+                    return true;
                 }
             }
         }

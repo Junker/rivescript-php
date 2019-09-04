@@ -30,14 +30,13 @@ class Brain
         $lineNumber = 0;
 
         while (! $file->eof()) {
-            $currentCommand = null;
             $node           = new Node($file->fgets(), $lineNumber++);
 
             if ($node->isInterrupted() or $node->isComment()) {
                 continue;
             }
 
-            $currentCommand = synapse()->parser->parseCommands($node, $currentCommand);
+            synapse()->parser->parseCommands($node);
         }
     }
 

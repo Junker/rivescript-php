@@ -14,7 +14,7 @@ class VariablePersonCommand implements Command
      *
      * @return array
      */
-    public function parse($node, $command)
+    public function parse($node)
     {
         if ($node->command() === '!') {
             $type = strtok($node->value(), ' ');
@@ -28,6 +28,8 @@ class VariablePersonCommand implements Command
                 $value = trim($value);
 
                 synapse()->memory->person()->put($key, $value);
+
+                return true;
             }
         }
     }

@@ -118,16 +118,20 @@ class Parser
 	    return $trigger;
 	}
 
-	public function parseCommands($node, $currentCommand)
+	public function parseCommands($node)
 	{
 		foreach (self::COMMANDS as $command) {
 			$class = "\\Axiom\\Rivescript\\Cortex\\Parser\\Commands\\$command";
 			$commandClass = new $class();
 
-			$result = $commandClass->parse($node, $currentCommand);
+			
 
-			if (isset($result['command']))
-			    return $result['command'];
+			if ($commandClass->parse($node, null))
+			{
+				synapse()->memory->shortTerm()->put('last_command', $commandClass);
+
+				break;
+			} 
 		}
 
 		return false;
