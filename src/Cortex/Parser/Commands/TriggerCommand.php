@@ -115,7 +115,7 @@ class TriggerCommand implements Command
     protected function determineWordCount($triggers)
     {
         $triggers->each(function ($trigger) {
-            $trigger->order = count(explode(' ', $trigger->row));
+            $trigger->order = count(explode(' ', $trigger->source));
         });
 
     }
@@ -123,6 +123,6 @@ class TriggerCommand implements Command
 
     public function addContinuation($str)
     {
-        $this->trigger->row .= $str;
+        $this->trigger->source .= $str;
     }
 }

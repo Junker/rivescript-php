@@ -4,12 +4,12 @@ namespace Axiom\Rivescript\Cortex;
 
 class Response
 {
-	public $row;
+	public $source;
 	public $weight;
 
-	public function __construct($row, $weight = 1)
+	public function __construct($source, $weight = 1)
 	{
-		$this->row = $row;
+		$this->source = $source;
 		$this->weight = $weight;
 	}
 }

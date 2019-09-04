@@ -65,6 +65,6 @@ class ConditionCommand implements Command
 
     public function addContinuation($str)
     {
-        $this->condition->response->row .= $str;
+        $this->condition->response->source .= $str;
     }
 }

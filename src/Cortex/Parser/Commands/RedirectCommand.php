@@ -22,7 +22,7 @@ class RedirectCommand implements Command
 
             synapse()->brain->topic($topic)->triggers()->each(function($tr) use ($trigger, $node) {
 
-                if ($tr->row == $node->value())
+                if ($tr->source == $node->value())
                 {
                     $trigger->redirect = $tr;
 

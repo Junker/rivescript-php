@@ -34,7 +34,7 @@ class ResponseCommand implements Command
 
     public function addContinuation($str)
     {
-        $this->response->row .= $str;
+        $this->response->source .= $str;
     }
 
 

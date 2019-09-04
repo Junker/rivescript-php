@@ -8,7 +8,7 @@ class Trigger
 
 	public $conditions = [];
 
-	public $row;
+	public $source;
 	public $type;
 	public $order;
 	public $redirect;
@@ -19,9 +19,9 @@ class Trigger
 	public const TYPE_ALPHABETIC  = 'alphabetic';
 
 
-	public function __construct($row, $type)
+	public function __construct($source, $type)
 	{
-		$this->row = $row;
+		$this->source = $source;
 		$this->type = $type;
 	} 
 }

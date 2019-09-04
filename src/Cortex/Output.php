@@ -41,7 +41,7 @@ class Output
     {
         synapse()->brain->topic()->triggers()->each(function ($trigger) {
 
-            $parsedTrigger = $this->parseTriggerTags($trigger->row);
+            $parsedTrigger = $this->parseTriggerTags($trigger->source);
 
             if (empty(trim($parsedTrigger))) return;
 
@@ -89,12 +89,12 @@ class Output
 
         foreach ($trigger->conditions as $condition) {
             if ($condition->assert($this->input)) {
-                $this->output = $this->parseResponseTags($condition->response->row);
+                $this->output = $this->parseResponseTags($condition->response->source);
                 return;
             }
         }
 
-        $this->output = $this->parseResponseTags($trigger->responses[array_rand($trigger->responses)]->row);
+        $this->output = $this->parseResponseTags($trigger->responses[array_rand($trigger->responses)]->source);
     }
 
     /**
