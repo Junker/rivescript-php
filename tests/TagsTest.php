@@ -47,4 +47,40 @@ class TagsTest extends ResponseTest
         $response = $this->rivescript->reply('my id');
         $this->assertEquals('your id is 0', $response);
     }
+
+    public function testWeightTag()
+    {
+        $response = $this->rivescript->reply('pick a color');
+        $this->assertContains($response, ['red', 'green', 'blue']);
+    }
+
+    public function testFormalTag()
+    {
+        $response = $this->rivescript->reply('make it formal every word');
+
+        $this->assertEquals('Every Word', $response);
+    }
+
+    public function testUppercaseTag()
+    {
+        $response = $this->rivescript->reply('make it uppercase every word');
+
+        $this->assertEquals('EVERY WORD', $response);
+    }
+
+    public function testLowercaseTag()
+    {
+        $response = $this->rivescript->reply('make it lowercase Every Word');
+
+        $this->assertEquals('every word', $response);
+    }
+
+    public function testSentenceTag()
+    {
+        $response = $this->rivescript->reply('make it sentence every word');
+
+        $this->assertEquals('Every word', $response);
+    }
+
+
 }

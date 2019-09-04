@@ -57,4 +57,14 @@ class Str
             }
         }
     }
+
+    public static function ucwords($str)
+    {
+        return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
+    }
+
+    public static function ucfirst($str)
+    {
+        return mb_strtoupper(mb_substr($str, 0, 1)).mb_strtolower(mb_substr($str, 1));
+    }
 }

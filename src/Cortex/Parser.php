@@ -45,6 +45,10 @@ class Parser
 		'ReplyTag',
 		'InputTag',
 		'IdTag',
+		'FormalTag',
+		'UppercaseTag',
+		'LowercaseTag',
+		'SentenceTag',
 	];
 
 	const TRIGGERS = [

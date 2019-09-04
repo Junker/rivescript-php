@@ -193,6 +193,23 @@
 + my id
 - your id is <id>
 
++ pick a color
+- red{weight=10}
+- green{weight=5}
+- blue{weight=2}
+
++ make it formal *
+- {formal}<star>{/formal}
+
++ make it uppercase *
+- {uppercase}<star>{/uppercase}
+
++ make it lowercase *
+- {lowercase}<star>{/lowercase}
+
++ make it sentence *
+- {sentence}<star>{/sentence}
+
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
 
