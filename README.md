@@ -44,7 +44,7 @@ A copy of the working draft can be found within the `resources` directory of thi
 
 ## Commands
 - [ ] % Previous
-- [ ] ^ Continue
+- [x] ^ Continue
 - [x] @ Redirect
 - [x] * Condition
 - [x] // Comment
@@ -81,7 +81,8 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [ ] `<botstar>`
 - [ ] `<botstar1>` - `<botstarN>`
 - [ ] `<input1>` - `<input9>`
-- [ ] `<reply1>` - `<reply9`
+- [x] `<reply>`	
+- [x] `<reply1>` - `<reply9`
 - [ ] `<id>`
 - [x] `<bot>`
 - [ ] `<env>`
