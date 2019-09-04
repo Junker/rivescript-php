@@ -4,17 +4,11 @@ namespace Axiom\Rivescript\Cortex\Parser\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
 use Axiom\Rivescript\Cortex\Condition;
+use Axiom\Rivescript\Cortex\Response;
 
 class ConditionCommand implements Command
 {
-    /**
-     * Parse the command.
-     *
-     * @param Node   $node
-     * @param string $command
-     *
-     * @return array
-     */
+    private $condition;
 
     const OPERATORS = [
         '==' => '==',
@@ -28,6 +22,14 @@ class ConditionCommand implements Command
         '>=' => '>=',
     ];
 
+    /**
+     * Parse the command.
+     *
+     * @param Node   $node
+     * @param string $command
+     *
+     * @return array
+     */
     public function parse($node)
     {
         if ($node->command() === '*') {
@@ -51,11 +53,18 @@ class ConditionCommand implements Command
                 if (preg_match('/\s'.preg_quote($operator).'\s/', $condition)) {
                     list($variable1, $variable2) = preg_split('/\s'.preg_quote($operator).'\s/', $condition);
 
-                    $trigger->conditions[] = new Condition(trim($condition), trim($variable1), trim($variable2), trim($operator), trim($response));
+                    $this->condition = new Condition(trim($condition), trim($variable1), trim($variable2), trim($operator), new Response(trim($response)));
+
+                    $trigger->conditions[] = $this->condition;
 
                     return true;
                 }
             }
         }
+    }
+
+    public function addContinuation($str)
+    {
+        $this->condition->response->row .= $str;
     }
 }

@@ -42,4 +42,19 @@ class Str
     {
         return $needle === '' or (($temp = mb_strlen($haystack) - mb_strlen($needle)) >= 0 and mb_strpos($haystack, $needle, $temp) !== false);
     }
+
+    public static  function replace($haystack, $needle, $replace, $limit, $start_pos = 0) 
+    {
+        if ($limit <= 0) {
+            return $haystack;
+        } else {
+            $pos = strpos($haystack,$needle,$start_pos);
+            if ($pos !== false) {
+                $newstring = substr_replace($haystack, $replace, $pos, strlen($needle));
+                return self::replace($newstring, $needle, $replace, $limit-1, $pos+strlen($replace));
+            } else {
+                return $haystack;
+            }
+        }
+    }
 }

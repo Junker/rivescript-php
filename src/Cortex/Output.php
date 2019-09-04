@@ -83,7 +83,7 @@ class Output
 
         foreach ($trigger->conditions as $condition) {
             if ($condition->assert($this->input)) {
-                $this->output = $this->parseResponseTags($condition->response);
+                $this->output = $this->parseResponseTags($condition->response->row);
                 return;
             }
         }

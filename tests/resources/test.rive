@@ -12,6 +12,8 @@
 ! var location = Cyberspace
 ! var phone    = 555-1234
 ! var email    = test@mydomain.com
+! var cont     = this is variable
+^ with continuation
 
 // Person
 ! person you are = I am
@@ -101,6 +103,8 @@
 ! sub g2g       = got to go
 
 ! array colors = red green blue cyan magenta yellow black white orange brown
+! array colors_cont = red green blue cyan magenta 
+^ yellow black white orange brown
 
 + hello bot
 - Hello human.

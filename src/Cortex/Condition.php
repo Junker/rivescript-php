@@ -10,7 +10,7 @@ class Condition
 	public $operator;
 	public $responce;
 
-	public function __construct($row, $variable1, $variable2, $operator, $response)
+	public function __construct(string $row, string $variable1, string $variable2, string $operator, Response $response)
 	{
 		$this->row = $row;
 		$this->variable1 = $variable1;
