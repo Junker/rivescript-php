@@ -179,7 +179,13 @@
 
 + i want an orange
 - we have only
-^ potatos
+^ potatoes
+
++ repeat
+- <reply>
+
++ <reply>
+- Do not repeat after me
 
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}

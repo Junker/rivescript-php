@@ -102,7 +102,7 @@ class Memory
     public function user($user = 0)
     {
         if (! $this->user->has($user)) {
-            $data = new Collection([]);
+            $data = new User();
 
             $this->user->put($user, $data);
         }

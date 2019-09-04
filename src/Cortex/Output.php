@@ -6,6 +6,7 @@ use Axiom\Collections\Collection;
 
 class Output
 {
+    protected const ERROR_MESSAGE = 'Error: Response could not be determined.';
     /**
      * @var array
      */
@@ -19,7 +20,7 @@ class Output
     /**
      * @var string
      */
-    protected $output = 'Error: Response could not be determined.';
+    protected $output = self::ERROR_MESSAGE;
 
     /**
      * Create a new Output instance.
@@ -41,6 +42,9 @@ class Output
         synapse()->brain->topic()->triggers()->each(function ($trigger) {
 
             $parsedTrigger = $this->parseTriggerTags($trigger->row);
+
+            if (empty(trim($parsedTrigger))) return;
+
             $parsedTrigger = $this->parseTriggers($parsedTrigger);
 
             $result = preg_match_all('/'.$parsedTrigger.'$/ui', $this->input->source(), $stars);
@@ -60,10 +64,12 @@ class Output
             }
 
 
-            if ($this->output !== 'Error: Response could not be determined.') {
+            if ($this->output !== self::ERROR_MESSAGE) {
+                synapse()->memory->user($this->input->user())->replies->push($this->output);
                 return false;
             }
         });
+
 
         return $this->output;
     }

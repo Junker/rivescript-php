@@ -34,7 +34,7 @@ class GetTag extends Tag
 
         if ($this->hasMatches($source)) {
             $matches  = $this->getMatches($source)[0];
-            $userData = synapse()->memory->user($input->user())->get($matches[1]) ?? 'undefined';
+            $userData = synapse()->memory->user($input->user())->variables->get($matches[1]) ?? 'undefined';
 
             $source = str_replace($matches[0], $userData, $source);
         }

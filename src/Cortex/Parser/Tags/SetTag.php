@@ -35,7 +35,7 @@ class SetTag extends Tag
         if ($this->hasMatches($source)) {
             $matches = $this->getMatches($source)[0];
 
-            synapse()->memory->user($input->user())->put($matches[1], $matches[2]);
+            synapse()->memory->user($input->user())->variables->put($matches[1], $matches[2]);
             $source = str_replace($matches[0], '', $source);
         }
 
