@@ -24,7 +24,17 @@ class ResponseCommand implements Command
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
             $trigger = synapse()->memory->shortTerm()->get('trigger');
 
-            $this->response = new Response($node->value());
+            $value = $node->value();
+
+            $weight = 1;
+
+            if (preg_match('/\{weight\=(\d+)\}/', $value, $match))
+            {
+                $weight = $match[1];
+                $value = str_replace($match[0], '', $value);
+            }
+
+            $this->response = new Response($value, $weight);
 
             $trigger->responses[] = $this->response;
 

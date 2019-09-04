@@ -3,6 +3,8 @@
 namespace Axiom\Rivescript\Cortex;
 
 use Axiom\Collections\Collection;
+use Axiom\Rivescript\Support\Arr;
+
 
 class Output
 {
@@ -96,7 +98,16 @@ class Output
             }
         }
 
-        $this->output = $this->parseResponseTags($trigger->responses[array_rand($trigger->responses)]->source);
+        $responses = [];
+        $weights = [];
+        foreach ($trigger->responses as $response) {
+            $responses[] = $response->source;
+            $weights[] = $response->weight;
+        }
+
+        $response = count($weights) == array_sum($weights) ? $responses[array_rand($responses)] : Arr::weightedRandom($responses, $weights);
+
+        $this->output = $this->parseResponseTags($response);
     }
 
     /**
