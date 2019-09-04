@@ -42,7 +42,9 @@ class Parser
 		'GetTag',
 		'TopicTag',
 		'RandomTag',
-		'ReplyTag'
+		'ReplyTag',
+		'InputTag',
+		'IdTag',
 	];
 
 	const TRIGGERS = [

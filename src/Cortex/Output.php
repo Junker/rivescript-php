@@ -39,6 +39,8 @@ class Output
      */
     public function process()
     {
+        synapse()->memory->user($this->input->user())->inputs->push($this->input->original());
+
         synapse()->brain->topic()->triggers()->each(function ($trigger) {
 
             $parsedTrigger = $this->parseTriggerTags($trigger->source);

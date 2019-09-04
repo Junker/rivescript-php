@@ -44,6 +44,16 @@ class Input
     }
 
     /**
+     * Return the original input.
+     *
+     * @return string
+     */
+    public function original()
+    {
+        return $this->original;
+    }
+
+    /**
      * Return the current user speaking.
      *
      * @return mixed

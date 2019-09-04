@@ -14,24 +14,37 @@ class TagsTest extends ResponseTest
     public function testGetTag()
     {
         $response = $this->rivescript->reply('my name is Rive');
-        $this->assertEquals($response, 'Nice to meet you!');
+        $this->assertEquals('Nice to meet you!', $response);
 
         $response = $this->rivescript->reply('what is my name');
-        $this->assertEquals($response, 'Your name is rive!');
+        $this->assertEquals('Your name is rive!', $response);
 
     }    
 
     public function testReplyTag()
     {
         $response = $this->rivescript->reply('hello bot');
-        $this->assertEquals($response, 'Hello human.');
+        $this->assertEquals('Hello human.', $response);
 
         $response = $this->rivescript->reply('repeat');
-        $this->assertEquals($response, 'Hello human.');
+        $this->assertEquals('Hello human.', $response);
 
         $response = $this->rivescript->reply('Hello human.');
-        $this->assertEquals($response, 'Do not repeat after me');
-
+        $this->assertEquals('Do not repeat after me', $response);
     }
 
+    public function testInputTag()
+    {
+        $response = $this->rivescript->reply('hello bot');
+        $this->assertEquals('Hello human.', $response);
+
+        $response = $this->rivescript->reply('what i just said');
+        $this->assertEquals('hello bot', $response);
+    }
+
+    public function testIdTag()
+    {
+        $response = $this->rivescript->reply('my id');
+        $this->assertEquals('your id is 0', $response);
+    }
 }

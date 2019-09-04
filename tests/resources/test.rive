@@ -187,6 +187,12 @@
 + <reply>
 - Do not repeat after me
 
++ what i just said
+- <input>
+
++ my id
+- your id is <id>
+
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
 

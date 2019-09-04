@@ -4,7 +4,7 @@ namespace Axiom\Rivescript\Cortex\Parser\Tags;
 
 use Axiom\Rivescript\Cortex\Input;
 
-class ReplyTag extends Tag
+class InputTag extends Tag
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class ReplyTag extends Tag
      *
      * @var string
      */
-    protected $pattern = '/<reply(\d+)?>/i';
+    protected $pattern = '/<input(\d+)?>/i';
 
     /**
      * Parse the response.
@@ -34,13 +34,13 @@ class ReplyTag extends Tag
 
         if ($this->hasMatches($source)) {
             $matches = $this->getMatches($source);
-            $replies   = synapse()->memory->user($input->user())->replies;
+            $inputs  = synapse()->memory->user($input->user())->inputs;
 
             foreach ($matches as $key => $match) {
                 $needle = $match[0];
-                $index  = empty($match[1]) ? ($replies->count()-1) : ($replies->count()-$match[1]);
+                $index  = empty($match[1]) ? ($inputs->count()-2) : ($inputs->count()-($match[1]+1));
 
-                $source = str_replace($match[0], $replies->get($index), $source);
+                $source = str_replace($match[0], $inputs->get($index), $source);
 
                 if ($this->sourceType == 'trigger')
                 {
