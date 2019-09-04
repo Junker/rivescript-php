@@ -3,6 +3,7 @@
 namespace Axiom\Rivescript\Cortex\Parser\Commands;
 
 use Axiom\Rivescript\Contracts\Command;
+use Axiom\Rivescript\Cortex\Response;
 
 class ResponseCommand implements Command
 {
@@ -15,7 +16,7 @@ class ResponseCommand implements Command
      * @return array
      */
 
-    private $trigger;
+    private $response;
 
     public function parse($node)
     {
@@ -23,9 +24,9 @@ class ResponseCommand implements Command
             $topic   = synapse()->memory->shortTerm()->get('topic') ?: 'random';
             $trigger = synapse()->memory->shortTerm()->get('trigger');
 
-            $this->trigger = $trigger;
+            $this->response = new Response($node->value());
 
-            $trigger->responses[] = $node->value();
+            $trigger->responses[] = $this->response;
 
             return true;
         }
@@ -33,7 +34,7 @@ class ResponseCommand implements Command
 
     public function addContinuation($str)
     {
-        $this->trigger->responses[count($this->trigger->responses)-1] .= $str;
+        $this->response->row .= $str;
     }
 
 

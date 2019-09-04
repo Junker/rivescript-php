@@ -88,8 +88,7 @@ class Output
             }
         }
 
-        $key          = array_rand($trigger->responses);
-        $this->output = $this->parseResponseTags($trigger->responses[$key]);
+        $this->output = $this->parseResponseTags($trigger->responses[array_rand($trigger->responses)]->row);
     }
 
     /**

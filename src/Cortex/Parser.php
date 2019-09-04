@@ -27,6 +27,7 @@ class Parser
 	    'ResponseCommand',
 	    'ConditionCommand',
 	    'TopicCommand',
+	    'ContinueCommand',
 	    'TriggerCommand',
 	    'VariableCommand',
 	    'VariablePersonCommand',
@@ -128,7 +129,8 @@ class Parser
 
 			if ($commandClass->parse($node, null))
 			{
-				synapse()->memory->shortTerm()->put('last_command', $commandClass);
+				if (!$commandClass instanceof \Axiom\Rivescript\Cortex\Parser\Commands\ContinueCommand)
+					synapse()->memory->shortTerm()->put('last_command', $commandClass);
 
 				break;
 			} 

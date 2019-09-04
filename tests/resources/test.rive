@@ -169,6 +169,13 @@
 * <star> < 3 => lesser
 - don't know
 
++ i want
+^ an apple
+- we have only oranges
+
++ i want an orange
+- we have only
+^ potatos
 
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
