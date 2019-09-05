@@ -67,4 +67,10 @@ class Str
     {
         return mb_strtoupper(mb_substr($str, 0, 1)).mb_strtolower(mb_substr($str, 1));
     }
+
+    function str_ireplace($search, $replace, $subject) 
+    {
+        $search = preg_quote($search);
+        return preg_replace("/$search/ui", $replace, $subject, -1);
+    }
 }

@@ -225,6 +225,11 @@
 + add end of line
 - no problem \n ok?
 
++ say *
+- Umm... "{person}<star>{/person}"
+
++ repeat after me *
+- Sure... "<person>"
 
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}

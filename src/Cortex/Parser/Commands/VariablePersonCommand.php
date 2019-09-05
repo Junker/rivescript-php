@@ -27,7 +27,6 @@ class VariablePersonCommand implements Command
                 list($key, $value) = explode('=', $value);
 
                 $key   = trim($key);
-                $key   = '/\b'.preg_quote($key, '/').'\b/'; // Convert the "key" to a regular expression ready format
                 $value = trim($value);
 
                 $this->key = $key;

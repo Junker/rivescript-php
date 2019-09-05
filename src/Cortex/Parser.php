@@ -43,6 +43,8 @@ class Parser
 		'EolTag',
 		'RandomTag',
 		'BotTag',
+		'PersonTag',
+		'PersonStarTag',
 		'FormalStarTag',
 		'UppercaseStarTag',
 		'LowercaseStarTag',

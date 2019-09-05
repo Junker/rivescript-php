@@ -116,4 +116,19 @@ class TagsTest extends ResponseTest
 
         $this->assertEquals("no problem\nok?", $response);
     }
+
+    public function testPersonTag()
+    {
+        $response = $this->rivescript->reply('say i am dumb');
+
+        $this->assertEquals('Umm... "you are dumb"', $response);
+    }
+
+    public function testPersonStarTag()
+    {
+        $response = $this->rivescript->reply('repeat after me i am dumb');
+
+        $this->assertEquals('Sure... "you are dumb"', $response);
+    }
+
 }
