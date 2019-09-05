@@ -82,5 +82,33 @@ class TagsTest extends ResponseTest
         $this->assertEquals('Every word', $response);
     }
 
+    public function testFormalStarTag()
+    {
+        $response = $this->rivescript->reply('formal every word');
+
+        $this->assertEquals('Every Word', $response);
+    }
+
+    public function testUppercaseStarTag()
+    {
+        $response = $this->rivescript->reply('uppercase every word');
+
+        $this->assertEquals('EVERY WORD', $response);
+    }
+
+    public function testLowercaseStarTag()
+    {
+        $response = $this->rivescript->reply('lowercase Every Word');
+
+        $this->assertEquals('every word', $response);
+    }
+
+    public function testSentenceStarTag()
+    {
+        $response = $this->rivescript->reply('sentence every word');
+
+        $this->assertEquals('Every word', $response);
+    }
+
 
 }

@@ -101,13 +101,13 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [ ] `{person}...{/person}`
 - [ ] `<person>`
 - [x] `{formal}...{/formal}`
-- [ ] `<formal>`
+- [x] `<formal>`
 - [x] `{sentence}...{/sentence}`
-- [ ] `<sentence>`
+- [x] `<sentence>`
 - [x] `{uppercase}...{/uppercase}`
-- [ ] `<uppercase>`
+- [x] `<uppercase>`
 - [x] `{lowercase}...{/lowercase}`
-- [ ] `<lowercase>`
+- [x] `<lowercase>`
 - [ ] `{ok}`
 - [ ] `\s`
 - [ ] `\n`
