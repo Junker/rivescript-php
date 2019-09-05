@@ -222,6 +222,9 @@
 + sentence *
 - <sentence>
 
++ add end of line
+- no problem \n ok?
+
 
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}

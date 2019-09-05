@@ -37,22 +37,23 @@ class Parser
 
 	const TAGS = [
 		'StarTag',
+		'InputTag',
+		'ReplyTag',
+		'IdTag',
+		'EolTag',
+		'RandomTag',
 		'BotTag',
-		'GetTag',
 		'FormalStarTag',
 		'UppercaseStarTag',
 		'LowercaseStarTag',
 		'SentenceStarTag',
-		'TopicTag',
-		'RandomTag',
-		'ReplyTag',
-		'InputTag',
-		'IdTag',
+		'GetTag',
 		'FormalTag',
 		'UppercaseTag',
 		'LowercaseTag',
 		'SentenceTag',
 		'SetTag',
+		'TopicTag',
 	];
 
 	const TRIGGERS = [

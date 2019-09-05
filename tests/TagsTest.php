@@ -110,5 +110,10 @@ class TagsTest extends ResponseTest
         $this->assertEquals('Every word', $response);
     }
 
+    public function testEolTag()
+    {
+        $response = $this->rivescript->reply('add end of line');
 
+        $this->assertEquals("no problem\nok?", $response);
+    }
 }
