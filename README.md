@@ -32,9 +32,9 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [x] Format
 - [x] Whitespace
 - [ ] Standard Global Variables
-- [ ] Sort +Triggers
+- [x] Sort +Triggers
 - [ ] Sort %Previous
-- [ ] Sort Replies
+- [x] Sort Replies
 - [ ] Syntax Checking
 
 ## Tag Priority
@@ -98,8 +98,8 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [ ] `{@...}`
 - [ ] `<@>`
 - [x] `{random}...{/random}`
-- [ ] `{person}...{/person}`
-- [ ] `<person>`
+- [x] `{person}...{/person}`
+- [x] `<person>`
 - [x] `{formal}...{/formal}`
 - [x] `<formal>`
 - [x] `{sentence}...{/sentence}`
