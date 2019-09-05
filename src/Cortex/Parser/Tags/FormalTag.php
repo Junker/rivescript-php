@@ -35,7 +35,7 @@ class FormalTag extends Tag
 
         if ($this->hasMatches($source)) {
             $matches = $this->getMatches($source)[0];
-
+            
             $source = str_replace($matches[0], Str::ucwords($matches[1]), $source);
         }
 

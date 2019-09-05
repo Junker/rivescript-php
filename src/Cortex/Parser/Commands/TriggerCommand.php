@@ -33,7 +33,7 @@ class TriggerCommand implements Command
             $topic->triggers->push($trigger);
 
             $topic->triggers = $this->sortTriggers($topic->triggers);
-print_r($topic->triggers);
+
             synapse()->memory->shortTerm()->put('trigger', $trigger);
 
             return true;
