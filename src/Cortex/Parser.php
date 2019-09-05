@@ -29,6 +29,7 @@ class Parser
 	    'TopicCommand',
 	    'ContinueCommand',
 	    'TriggerCommand',
+	    'PreviousCommand',
 	    'VariableCommand',
 	    'VariablePersonCommand',
 	    'VariableSubstituteCommand',

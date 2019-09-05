@@ -31,7 +31,6 @@ class TriggerCommand implements Command
 
             $this->trigger = $trigger;
             $topic->triggers->push($trigger);
-
             $topic->triggers = $this->sortTriggers($topic->triggers);
 
             synapse()->memory->shortTerm()->put('trigger', $trigger);
@@ -109,6 +108,9 @@ class TriggerCommand implements Command
                     $trigger->order += 500000;
                     break;
             }
+
+            if ($trigger->previous)
+                $trigger->order += 1;
         });
     }
 

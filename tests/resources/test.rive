@@ -231,6 +231,29 @@
 + repeat after me *
 - Sure... "<person>"
 
+//previous
++ i have a dog
+- What color is it?
+
++ (@colors)
+% what color is it
+- That's an odd color for a dog.
+
+
+//previous 2
++ knock knock
+- Who's there?
+
++ *
+% who is there
+- <star> who?
+
++ *
+% * who
+- lol! <star>! That's hilarious!
+
+
+//topic
 + i hate you
 - Well that's mean. I'm not talking again until you say you're sorry.{topic=sorry}
 

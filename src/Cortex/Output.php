@@ -51,9 +51,29 @@ class Output
 
             $parsedTrigger = $this->parseTriggers($parsedTrigger);
 
-            $result = preg_match_all('/'.$parsedTrigger.'$/ui', $this->input->source(), $stars);
+            $result = preg_match_all('/^'.$parsedTrigger.'$/ui', $this->input->source(), $stars);
 
             if ($result) {
+                if ($trigger->previous) {
+                    $parsedPrevious = $this->parseTriggerTags($trigger->previous);
+                    $parsedPrevious = $this->parseTriggers($parsedPrevious);
+
+                    $patterns     = synapse()->memory->substitute()->keys()->all();
+                    $replacements = synapse()->memory->substitute()->values()->all();
+
+                    $last_reply = synapse()->memory->user($this->input->user())->replies->last();
+
+                    if (!$last_reply) return;
+
+                    $last_reply = mb_strtolower($last_reply);
+                    $last_reply = preg_replace($patterns, $replacements, $last_reply);
+                    $last_reply = preg_replace('/[^\pL\d\s]+/u', '', $last_reply);
+                    $last_reply = remove_whitespace($last_reply);
+
+                    if (!preg_match_all('/^'.$parsedPrevious.'$/ui', $last_reply))
+                        return;
+                }
+
                 if (isset($stars[1])) {
                     array_shift($stars);
                     
@@ -65,12 +85,10 @@ class Output
 
                 $this->getResponse($trigger);
 
-            }
-
-
-            if ($this->output !== self::ERROR_MESSAGE) {
-                synapse()->memory->user($this->input->user())->replies->push($this->output);
-                return false;
+                if ($this->output !== self::ERROR_MESSAGE) {
+                    synapse()->memory->user($this->input->user())->replies->push($this->output);
+                    return false;
+                }
             }
         });
 
