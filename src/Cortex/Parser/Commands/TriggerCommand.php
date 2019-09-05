@@ -33,7 +33,7 @@ class TriggerCommand implements Command
             $topic->triggers->push($trigger);
 
             $topic->triggers = $this->sortTriggers($topic->triggers);
-
+print_r($topic->triggers);
             synapse()->memory->shortTerm()->put('trigger', $trigger);
 
             return true;
@@ -50,9 +50,11 @@ class TriggerCommand implements Command
     protected function determineTriggerType($triggerRow)
     {
         $wildcards = [
-            Trigger::TYPE_ALPHABETIC => '/_/',
-            Trigger::TYPE_NUMERIC    => '/#/',
+            Trigger::TYPE_GLOBAL_ONLY => '/^\s*\*\s*$/',
             Trigger::TYPE_GLOBAL     => '/\*/',
+            Trigger::TYPE_NUMERIC    => '/#/',
+            Trigger::TYPE_ALPHABETIC => '/_/',
+            Trigger::TYPE_OPTIONAL => '/\[.*\]/',
         ];
 
         foreach ($wildcards as $type => $pattern) {
@@ -89,6 +91,9 @@ class TriggerCommand implements Command
         $triggers = $triggers->each(function ($trigger) {
             switch ($trigger->type) {
                 case Trigger::TYPE_ATOMIC:
+                    $trigger->order += 5000000;
+                    break;
+                case Trigger::TYPE_OPTIONAL:
                     $trigger->order += 4000000;
                     break;
                 case Trigger::TYPE_ALPHABETIC:
@@ -99,6 +104,9 @@ class TriggerCommand implements Command
                     break;
                 case Trigger::TYPE_GLOBAL:
                     $trigger->order += 1000000;
+                    break;
+                case Trigger::TYPE_GLOBAL_ONLY:
+                    $trigger->order += 500000;
                     break;
             }
         });
