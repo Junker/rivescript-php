@@ -43,7 +43,7 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [ ] Within Replies
 
 ## Commands
-- [ ] % Previous
+- [x] % Previous
 - [x] ^ Continue
 - [x] @ Redirect
 - [x] * Condition
@@ -110,6 +110,6 @@ A copy of the working draft can be found within the `resources` directory of thi
 - [x] `<lowercase>`
 - [ ] `{ok}`
 - [ ] `\s`
-- [ ] `\n`
+- [x] `\n`
 - [ ] `\/`
 - [ ] `\#`
