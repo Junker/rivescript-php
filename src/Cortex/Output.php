@@ -76,7 +76,7 @@ class Output
 
                 if (isset($stars[1])) {
                     array_shift($stars);
-                    
+
                     $stars = Collection::make($stars)->flatten()->all();
 
                     synapse()->memory->shortTerm()->put('stars', $stars);
@@ -109,11 +109,18 @@ class Output
             return $this->getResponse($trigger->redirect);
         }
 
+        $cond_responses = [];
+
         foreach ($trigger->conditions as $condition) {
             if ($condition->assert($this->input)) {
-                $this->output = $this->parseResponseTags($condition->response->source);
-                return;
+                $cond_responses[] = $condition->response->source;
             }
+        }
+
+        if (!empty($cond_responses)) {
+            $this->output = $this->parseResponseTags($cond_responses[array_rand($cond_responses)]);
+
+            return;
         }
 
         $responses = [];
