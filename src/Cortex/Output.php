@@ -109,19 +109,25 @@ class Output
             return $this->getResponse($trigger->redirect);
         }
 
-        $cond_responses = [];
+        if (!empty($trigger->conditions))
+        {
+            $cond_responses = [];
 
-        foreach ($trigger->conditions as $condition) {
-            if ($condition->assert($this->input)) {
-                $cond_responses[] = $condition->response->source;
+            foreach ($trigger->conditions as $condition) {
+                if ($condition->assert($this->input)) {
+                    $cond_responses[] = $condition->response->source;
+                }
+            }
+
+            if (!empty($cond_responses)) {
+                $this->output = $this->parseResponseTags($cond_responses[array_rand($cond_responses)]);
+
+                return;
             }
         }
 
-        if (!empty($cond_responses)) {
-            $this->output = $this->parseResponseTags($cond_responses[array_rand($cond_responses)]);
-
+        if (empty($trigger->responses))
             return;
-        }
 
         $responses = [];
         $weights = [];
