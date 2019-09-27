@@ -36,7 +36,7 @@ class TopicTag extends Tag
             list($find, $topic) = $this->getMatches($source)[0];
 
             $source = str_replace($find, '', $source);
-            synapse()->memory->shortTerm()->put('topic', $topic);
+            synapse()->memory->user($input->user())->setTopic($topic);
         }
 
         return $source;

@@ -42,9 +42,8 @@ class Brain
 
     public function topic($name = null)
     {
-        if (is_null($name)) {
-            $name = synapse()->memory->shortTerm()->get('topic') ?: 'random';
-        }
+        if (is_null($name))
+            $name = 'random';
 
         if (! isset($this->topics[$name])) {
             return null;

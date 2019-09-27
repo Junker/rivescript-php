@@ -41,9 +41,11 @@ class Output
      */
     public function process()
     {
-        synapse()->memory->user($this->input->user())->inputs->push($this->input->original());
+        $user = synapse()->memory->user($this->input->user());
 
-        synapse()->brain->topic()->triggers()->each(function ($trigger) {
+        $user->inputs->push($this->input->original());
+
+        synapse()->brain->topic($user->topic())->triggers()->each(function ($trigger) use ($user) {
 
             $parsedTrigger = $this->parseTriggerTags($trigger->source);
 
@@ -61,7 +63,7 @@ class Output
                     $patterns     = synapse()->memory->substitute()->keys()->all();
                     $replacements = synapse()->memory->substitute()->values()->all();
 
-                    $last_reply = synapse()->memory->user($this->input->user())->replies->last();
+                    $last_reply = $user->replies->last();
 
                     if (!$last_reply) return;
 
@@ -86,12 +88,11 @@ class Output
                 $this->getResponse($trigger);
 
                 if ($this->output !== self::ERROR_MESSAGE) {
-                    synapse()->memory->user($this->input->user())->replies->push($this->output);
+                    $user->replies->push($this->output);
                     return false;
                 }
             }
         });
-
 
         return $this->output;
     }
